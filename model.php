@@ -94,14 +94,21 @@
 		//muutujad peavad olema samas järjekorras, mis select lauses
 		mysqli_stmt_bind_result($stmt, $etenduse_id, $nimetus, $aeg, $kohad);
 		
-		
+		$etendus = array();
 		//fetch täidab ära need muutujad, mis on bindi juures määratud $query lauses olevate väärtustega
-		$etendus = mysqli_stmt_fetch($stmt);
+		
+		if (mysqli_stmt_fetch($stmt)) {
+			$etendus[] = array(
+			    'etenduse_id' => $etenduse_id, 
+			    'nimetus' => $nimetus, 
+			    'aeg' => $aeg,
+			    'kohad' => $kohad
+			);
+		}
 		
 		mysqli_stmt_close($stmt);
 		
-		return $etenduse_id;
-		
+		return $etendus;
 		
 	}
 	

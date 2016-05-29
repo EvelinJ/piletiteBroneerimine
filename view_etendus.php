@@ -41,11 +41,15 @@
             </thead>
 			
             <tbody>
-			<?php $etendus = model_gobooking($_GET['etenduse_id']); ?>
+			<?php $etendus = model_gobooking($etenduse_id); ?>
+			<?php var_dump($etendus);
+		    exit; ?>
+			
 			<?php if ( !empty($etendus) ) :?>
 			    <!--<h3><?php echo $_GET['etenduse_id']; ?></h3>-->
 				<h3><?php echo $etendus; ?></h3>
-				<h3><?php echo $_GET['nimetus']; ?></h3>
+				<h3><?php echo $etendus; ?></h3>
+				<h3><?php echo $etendus['nimetus']; ?></h3>
 				<tr>
                     <td>
                         <!-- vältimaks pahatahtlikku XSS sisu, kus kasutaja sisestab õige info asemel <script> tag'i, peame tekstiväljundis asendama kõik HTML erisümbolid  --> 

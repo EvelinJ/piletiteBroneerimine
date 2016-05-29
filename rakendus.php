@@ -85,6 +85,7 @@ if ( !empty($_GET['action']) ) {
     switch ($_GET['action']) {
 		case 'gobooking': 
 		    $etenduse_id = intval($_GET['etenduse_id']);
+			
 		    $result = controller_gobooking($etenduse_id);
 			break;
 	    }
