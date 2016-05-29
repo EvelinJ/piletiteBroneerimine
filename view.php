@@ -112,10 +112,9 @@
                             <?= $rida['kohad']; ?>
                         </td>
 						<td>
-						    <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
+						    <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
 							
 							    <input type="hidden" name="action" value="gobooking">
-								<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                 <input type="hidden" name="etenduse_id" value="<?= $rida['etenduse_id']; ?>">
 								
                                 

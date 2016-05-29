@@ -122,20 +122,20 @@
 			return false;
 		}
 		
-		$id = model_user_get($kasutajanimi, $parool);
+		$kasutaja_id = model_user_get($kasutajanimi, $parool);
 		
-		if (!$id) {
+		if (!$kasutaja_id) {
 			message_add('Vigane kasutajanimi või parool');
 			return false;
 		}
 		
 		session_regenerate_id();
 		
-		$_SESSION['user'] = $id;
+		$_SESSION['user'] = $kasutaja_id;
 		
 		message_add('Tere tulemast, '.$kasutajanimi);
 		
-		return $id;
+		return $kasutaja_id;
 	}
 	
 	function controller_logout () {

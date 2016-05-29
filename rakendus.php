@@ -28,12 +28,15 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 				$kohad = intval($_POST['kohad']);
 		        $result = controller_add($nimetus, $aeg, $kohad);
 		        break;
-			case 'gobooking': 
+			/*case 'gobooking': 
 		        $etenduse_id = intval($_POST['etenduse_id']);
-		        $result = controller_gobooking($etenduse_id);
+				$nimetus = $_POST['nimetus'];
+				$aeg = date ('Y-m-d H:i:s', strtotime($_POST['aeg']));
+				$kohad = intval($_POST['kohad']);
+		        $result = controller_gobooking($etenduse_id, $nimetus, $aeg, $kohad);
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?view=etendus');
 				exit;
-			    break;
+			    break;*/
 			case 'booking': 
 		        $broneeringu_id = intval($_POST['broneeringu_id']);
 				$etenduse_id = intval($_POST['etenduse_id']);
@@ -71,6 +74,27 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	
 	//kui result muutus true'ks suuname kasutaja ümber iseenda pihta.
 	header('Location: rakendus.php');
+	exit;
+	
+}
+
+if ( !empty($_GET['action']) ) {
+    //tekitame muutuja, mida muudame, juhul kui tegevused saavad läbi ja result on ikka false, siis tekkis viga, kui on true, siis tegime kas toimingu add või delete
+	$result = false;
+	
+    switch ($_GET['action']) {
+		case 'gobooking': 
+		    $etenduse_id = intval($_GET['etenduse_id']);
+		    $result = controller_gobooking($etenduse_id);
+			break;
+	    }
+	
+	//Juhul, kui result on false ehk ei toimunud ühtegi toimingut, siis annab veateate.
+	if (!$result) {
+		message_add('Päring ebaõnnestus!');
+	}
+	
+	require('view_etendus.php');
 	exit;
 	
 }

@@ -90,8 +90,6 @@
 		
 		mysqli_stmt_execute($stmt);
 		
-		//mitut rida mõjutati ehk valiti
-		$selected = mysqli_stmt_affected_rows($stmt);
 		
 		//muutujad peavad olema samas järjekorras, mis select lauses
 		mysqli_stmt_bind_result($stmt, $etenduse_id, $nimetus, $aeg, $kohad);
@@ -100,12 +98,9 @@
 		//fetch täidab ära need muutujad, mis on bindi juures määratud $query lauses olevate väärtustega
 		$etendus = mysqli_stmt_fetch($stmt);
 		
-		
 		mysqli_stmt_close($stmt);
 		
-		return $selected;
-		
-		return $etendus;
+		return $etenduse_id;
 		
 		
 	}
@@ -184,11 +179,11 @@
 		
 		mysqli_stmt_execute($stmt);
 		
-		$id = mysqli_stmt_insert_id($stmt);
+		$kasutaja_id = mysqli_stmt_insert_id($stmt);
 		
 		mysqli_stmt_close($stmt);
 		
-		return $id;
+		return $kasutaja_id;
 	}
 	
 	function model_user_get($kasutajanimi, $parool) {
@@ -208,7 +203,7 @@
 		
 		mysqli_stmt_execute($stmt);
 		
-		mysqli_stmt_bind_result($stmt, $id, $hash);
+		mysqli_stmt_bind_result($stmt, $kasutaja_id, $hash);
 		
 		mysqli_stmt_fetch($stmt);
 		
@@ -216,7 +211,7 @@
 		
 		
 		if ( password_verify($parool, $hash) ) {
-			return $id;
+			return $kasutaja_id;
 		} else {
 			return false;
 		}

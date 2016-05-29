@@ -41,10 +41,11 @@
             </thead>
 			
             <tbody>
-			
+			<?php $etendus = model_gobooking($_GET['etenduse_id']); ?>
 			<?php if ( !empty($etendus) ) :?>
-			    <!--<h3><?php echo $_POST['etenduse_id']; ?></h3>-->
-				<h3><?= $etendus['nimetus']; ?></h3>
+			    <!--<h3><?php echo $_GET['etenduse_id']; ?></h3>-->
+				<h3><?php echo $etendus; ?></h3>
+				<h3><?php echo $_GET['nimetus']; ?></h3>
 				<tr>
                     <td>
                         <!-- vältimaks pahatahtlikku XSS sisu, kus kasutaja sisestab õige info asemel <script> tag'i, peame tekstiväljundis asendama kõik HTML erisümbolid  --> 
@@ -72,7 +73,7 @@
                 
 				<input type="hidden" name="action" value="booking">
 				<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-				<input type="hidden" name="etenduse_id" value="<?= $etendus['etenduse_id']; ?>">
+				<input type="hidden" name="etenduse_id" value="<?= $_GET['etenduse_id']; ?>">
 				<input type="hidden" name="kasutaja_id" value="<?= $_POST['kasutaja_id']; ?>">
 				
 				<h2>Broneeri pilet</h2>
