@@ -24,6 +24,7 @@
 		    <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
 			    <input type="hidden" name="action" value="logout">
 				<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+				
 				<button type="submit">Logi välja</button>
 			</form>
 		</div>
@@ -33,7 +34,7 @@
         <!-- Sisestatud andmete tabel -->
         <table id="kirjed" border="1">
             <thead> <!-- tabeli päis -->
-                <tr> <!-- üks rida, kaks veergu -->
+                <tr> <!-- üks rida, kolm veergu -->
                     <th>Etenduse nimetus</th>
 					<th>Etenduse toimumise aeg</th>
 					<th>Vabad kohad</th>
@@ -41,14 +42,10 @@
             </thead>
 			
             <tbody>
-			<?php $etendus = model_gobooking($etenduse_id); ?>
-			<?php var_dump($etendus);
-		    exit; ?>
+			
+			<?php $etendus = model_gobooking($etenduse_id, $aeg); ?>
 			
 			<?php if ( !empty($etendus) ) :?>
-			    <!--<h3><?php echo $_GET['etenduse_id']; ?></h3>-->
-				<h3><?php echo $etendus; ?></h3>
-				<h3><?php echo $etendus; ?></h3>
 				<h3><?php echo $etendus['nimetus']; ?></h3>
 				<tr>
                     <td>
@@ -62,23 +59,19 @@
                             <?= $etendus['kohad']; ?>
                         </td>
                 </tr>
-			<?php else: ?>
-			<h3><?php echo 'tyhi'; ?></h3>
 			<?php endif; ?>
-            <!-- salvestab massiivist väärtused tabelisse, indeksit on vaja, et teaksime millist rida kustutada  -->
-            
             
 			</tbody>
         </table>
 		
 		<div id="lisa-broneering-vaade">
 			
-            <form id="lisa-broneering" method="post" action="<?= $_SERVER['PHP_SELF']; ?>"> <!-- php jaoks on vajalik method ja action viitab sellele failile, mille URLis avame 9Rakendus.php-->
+			<!-- php jaoks on vajalik method ja action viitab sellele failile, mille URLis avame rakendus.php-->
+            <form id="lisa-broneering" method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
                 
 				<input type="hidden" name="action" value="booking">
 				<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-				<input type="hidden" name="etenduse_id" value="<?= $_GET['etenduse_id']; ?>">
-				<input type="hidden" name="kasutaja_id" value="<?= $_POST['kasutaja_id']; ?>">
+				<input type="hidden" name="etenduse_id" value="<?= $etendus['etenduse_id']; ?>">
 				
 				<h2>Broneeri pilet</h2>
 				

@@ -57,7 +57,8 @@
                     <tr>
                         <td>Etenduse nimetus</td>
                         <td>
-                            <input type="text" id="nimetus" name="nimetus"> <!-- php jaoks on vajalik name, kui seda ei ole, siis neid elemente ei saadeta serverisse -->
+						    <!-- php jaoks on vajalik name, kui seda ei ole, siis neid elemente ei saadeta serverisse -->
+                            <input type="text" id="nimetus" name="nimetus">
                         </td>
                     </tr>
 					<tr>
@@ -85,7 +86,7 @@
 		<!-- Sisestatud andmete tabel -->
         <table id="kirjed" border="1">
             <thead> <!-- tabeli päis -->
-                <tr> <!-- üks rida, kaks veergu -->
+                <tr> <!-- üks rida, viis veergu -->
                     <th>Etenduse nimetus</th>
 					<th>Etenduse toimumise aeg</th>
 					<th>Vabad kohad</th>
@@ -96,7 +97,7 @@
 			
             <tbody>
 			
-            <!-- salvestab massiivist väärtused tabelisse, indeksit on vaja, et teaksime millist rida kustutada  -->
+            <!-- salvestame massiivist väärtused tabelisse -->
             <?php 
 			// koolon tsükli lõpus tähendab, et tsükkel koosneb HTML osast
                 foreach ( model_load($page) as $rida ): ?>
@@ -116,11 +117,12 @@
 							
 							    <input type="hidden" name="action" value="gobooking">
                                 <input type="hidden" name="etenduse_id" value="<?= $rida['etenduse_id']; ?>">
-								
+								<input type="hidden" name="aeg" value="<?= $rida['aeg']; ?>">
                                 
 								<button type="submit">Pileti broneerimine</button>
                                 
 							</form>
+							
                         </td>
                         <td>
 					

@@ -11,11 +11,10 @@
 	//laeme kõik read korraga alla, sorteerime nimetuse järgi kasvavas järjekorras
     function model_load($page) {
 	    global $l;
-		$max = 5;
+		$max = 10;
 		$start = ($page - 1) * $max;
 		
-		$query = 'SELECT Etenduse_id, Nimetus, Aeg, Kohti_kokku FROM ejogi__etendused ORDER BY Aeg ASC LIMIT ?,?';
-		//$query = 'SELECT Etenduse_id, Nimetus, Aeg, Kohti_kokku-SUM(Broneeritud_piletid) FROM ejogi__etendused, ejogi__broneeringud WHERE Etenduse_id=Etenduse_kood ORDER BY Aeg ASC LIMIT ?,?';
+		$query = 'SELECT Etenduse_id, Nimetus, Aeg, Kohti_kokku-IFNULL(SUM(Broneeritud_piletid),0) as vabu_kohti FROM ejogi__etendused LEFT JOIN ejogi__broneeringud ON Etenduse_id=Etenduse_kood GROUP BY Etenduse_id ORDER BY Aeg ASC LIMIT ?,?';
 		$stmt = mysqli_prepare($l, $query);
 		//juhul kui SQL lause on vale, siis saame teate
 		if ( mysqli_error($l) ) {
@@ -72,10 +71,10 @@
 		return $etenduse_id;
 	}
 	
-	function model_gobooking($etenduse_id) {
+	function model_gobooking($etenduse_id, $aeg) {
 		global $l;
 		
-		$query = 'SELECT Etenduse_id, Nimetus, Aeg, Kohti_kokku FROM ejogi__etendused WHERE Etenduse_id = ? LIMIT 1';
+		$query = 'SELECT Etenduse_id, Nimetus, Aeg, Kohti_kokku-IFNULL(SUM(Broneeritud_piletid),0) as vabu_kohti FROM ejogi__etendused LEFT JOIN ejogi__broneeringud ON Etenduse_id=Etenduse_kood WHERE Etenduse_id = ? GROUP BY Etenduse_id LIMIT 1';
 		
 		$stmt = mysqli_prepare($l, $query);
 		
@@ -90,15 +89,13 @@
 		
 		mysqli_stmt_execute($stmt);
 		
-		
 		//muutujad peavad olema samas järjekorras, mis select lauses
 		mysqli_stmt_bind_result($stmt, $etenduse_id, $nimetus, $aeg, $kohad);
 		
 		$etendus = array();
-		//fetch täidab ära need muutujad, mis on bindi juures määratud $query lauses olevate väärtustega
 		
 		if (mysqli_stmt_fetch($stmt)) {
-			$etendus[] = array(
+			$etendus = array(
 			    'etenduse_id' => $etenduse_id, 
 			    'nimetus' => $nimetus, 
 			    'aeg' => $aeg,
@@ -112,12 +109,11 @@
 		
 	}
 	
-	function model_booking($broneeringu_id, $etenduse_id, $kasutaja_id, $piletid) {
+	function model_booking($etenduse_id, $piletid) {
 		// modelis toimub ainult salvestamine
 		global $l;
 		
-		//kui mitut välja uuendame, siis väljad käivad komadega (...SET Kogus=?, Nimetus=?)
-		$query = 'INSERT INTO ejogi__broneeringud (Broneeringu_id, Etenduse_kood, Kasutaja_kood, Broneeritud_piletid) VALUES (?, ?, ?, ?)';
+		$query = 'INSERT INTO ejogi__broneeringud (Etenduse_kood, Broneeritud_piletid) VALUES (?, ?)';
 		
 		$stmt = mysqli_prepare($l, $query);
 		//juhul kui SQL lause on vale, siis saame teate
@@ -126,8 +122,7 @@
 			exit;
 		}
 		
-		//i tähendab küsimärgi muutuja tüüpi
-		mysqli_stmt_bind_param($stmt, 'iiii', $broneeringu_id, $etenduse_id, $kasutaja_id, $piletid);
+		mysqli_stmt_bind_param($stmt, 'ii', $etenduse_id, $piletid);
 		
 		mysqli_stmt_execute($stmt);
 		
@@ -135,9 +130,11 @@
 			return false;
 		}
 		
+		$broneeringu_id = mysqli_stmt_insert_id($stmt);
+		
 		mysqli_stmt_close($stmt);
 		
-		return true;
+		return $broneeringu_id;
 	}
 	
 	function model_delete($etenduse_id) {

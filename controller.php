@@ -2,29 +2,32 @@
 
     function controller_add($nimetus, $aeg, $kohad) {
 		
+		$kuupaev = date('Y-m-d H:i:s');
+		
 		if ( !controller_user() ) {
 			message_add('Kasutaja peab olema sisselogitud!');
 			return false;
 		}
 		
-		// kontrollime kas sisendväärtused on oodatud kujul või mitte
-		if ($nimetus == '' || $aeg == '' || $kohad <= 0) {
-			message_add('Sisestatud väärtused on vigased. Kõik andmed peavad olema sisestatud ja kuupäev ei tohi olla möödunud!');
+		// kontrollime, kas sisendväärtused on oodatud kujul või mitte
+		if ($nimetus == '' || $aeg == '' || $aeg < $kuupaev || $kohad <= 0) {
+			message_add('Sisestatud väärtused on vigased. Kõik andmed peavad olema sisestatud ja etenduse kuupäev ei tohi olla möödunud!');
 			return false;
 		}
 		
 		if ( model_add($nimetus, $aeg, $kohad) ) {
-			message_add('Lisati uus etendus');
+			message_add('Mängukavva lisati uus etendus');
 			// saadame info modelisse, mis reaalse salvestamise teeb
 			return true;
 		}
 		
 		message_add('Andmete lisamine ebaõnnestus!');
-		
 		return false;
 	}
 	
-	function controller_gobooking($etenduse_id) {
+	function controller_gobooking($etenduse_id, $aeg) {
+		
+		$kuupaev = date('Y-m-d H:i:s');
 		
 		if ( !controller_user() ) {
 			message_add('Kasutaja peab olema sisselogitud!');
@@ -36,7 +39,12 @@
 			return false;
 		}
 		
-		if ( model_gobooking($etenduse_id) ) {
+		if ($aeg < $kuupaev) {
+			message_add('Juba toimunud etendusele ei saa pileteid broneerida');
+			return false;
+		}
+		
+		if ( model_gobooking($etenduse_id, $aeg) ) {
 			message_add('Valisid etenduse '.$etenduse_id);
 			// saadame info modelisse, mis reaalse salvestamise teeb
 			return true;
@@ -44,28 +52,31 @@
 		
 		message_add('Etenduse valimine ebaõnnestus');
 		return false;
+		
 	}
 	
-	function controller_booking($broneeringu_id, $etenduse_id, $kasutaja_id, $piletid) {
+	function controller_booking($etenduse_id, $piletid) {
 		
 		if ( !controller_user() ) {
 			message_add('Kasutaja peab olema sisselogitud!');
 			return false;
 		}
 		
-		// kui id või kogus on nullist väiksem või 0, siis see meile ei sobi
-		if ($broneeringu_id <= 0 || $etenduse_id <= 0 || $kasutaja_id <= 0 || $piletid <= 0) {
-			message_add('Sisestatud andmed on vigased!');
+		$vabad_kohad = model_gobooking($etenduse_id);
+		
+		// kui id või kogus on nullist väiksem või 0 või pileteid broneeritakse rohkem kui vabu kohti, siis see meile ei sobi
+		if ($etenduse_id <= 0 || $piletid <= 0 || $piletid > $vabad_kohad['kohad']) {
+			message_add('Broneeritavate piletite arv peab olema väiksem, kui vabade kohtade arv ja piletite arv peab olema nullist suurem');
 			return false;
 		}
 		
-		if ( model_booking($broneeringu_id, $etenduse_id, $kasutaja_id, $piletid) ) {
-			message_add('Broneering '.$broneeringu_id);
+		if ( model_booking($etenduse_id, $piletid) ) {
+			message_add('Etendusele broneeritud piletite arv: '.$piletid);
 			// saadame info modelisse, mis reaalse salvestamise teeb
 			return true;
 		}
 		
-		message_add('Andmete uuendamine ebaõnnestus');
+		message_add('Andmete uuendamine ebaõnnestus!');
 		return false;
 	}
 	
@@ -87,7 +98,7 @@
 			return true;
 		}
 		
-		message_add('Rea kustutamine ebaõnnestus');
+		message_add('Rea kustutamine ebaõnnestus!');
 		return false;
 	}
 	
@@ -102,16 +113,16 @@
 	function controller_register($kasutajanimi, $parool) {
 		
 		if ($kasutajanimi == '' || $parool == '') {
-			message_add('Sisestatud andmed ei sobi!');
+			message_add('Kasutajanimi ja parool peavad olema sisestatud!');
 			return false;
 		}
 		
 		if ( model_user_add($kasutajanimi, $parool) ) {
-			message_add('Konto on registreeritud');
+			message_add('Teie konto on registreeritud');
 			return true;
 		}
 		
-		message_add('Konto registreerimine ebaõnnestus, kasutajanimi võib olla juba võetud');
+		message_add('Konto registreerimine ebaõnnestus, kasutajanimi võib olla juba võetud!');
 		return false;
 	}
 	

@@ -11,12 +11,11 @@ if ( empty( $_SESSION['csrf_token'] ) ) {
 //tagame, et andmed oleks saadval ja neid on võimalik salvestada
 require('model.php');
 
-//andmete lisamise ja kustutamise funktsioonid
 require('controller.php');
 
-//loogika, mis kontrollib, mis actioniga on tegu ja kutsub vastava tegevuse ehk vahendab kasutaja poolt tulnud käske õigesse kohta, see võiks ka eraldi failis olla
+//loogika, mis kontrollib, mis actioniga on tegu ja kutsub välja vastava tegevuse ehk vahendab kasutaja poolt tulnud käske õigesse kohta
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-    //tekitame muutuja, mida muudame, juhul kui tegevused saavad läbi ja result on ikka false, siis tekkis viga, kui on true, siis tegime kas toimingu add või delete
+    //tekitame muutuja, mida muudame, juhul kui tegevused saavad läbi ja result on ikka false, siis tekkis viga, kui on true, siis tegime vastava case toimingu
 	$result = false;
 	
 	if ( !empty( $_POST['csrf_token'] ) && $_POST['csrf_token'] == $_SESSION['csrf_token'] ) {
@@ -28,21 +27,10 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 				$kohad = intval($_POST['kohad']);
 		        $result = controller_add($nimetus, $aeg, $kohad);
 		        break;
-			/*case 'gobooking': 
-		        $etenduse_id = intval($_POST['etenduse_id']);
-				$nimetus = $_POST['nimetus'];
-				$aeg = date ('Y-m-d H:i:s', strtotime($_POST['aeg']));
-				$kohad = intval($_POST['kohad']);
-		        $result = controller_gobooking($etenduse_id, $nimetus, $aeg, $kohad);
-				header('Location: ' . $_SERVER['PHP_SELF'] . '?view=etendus');
-				exit;
-			    break;*/
 			case 'booking': 
-		        $broneeringu_id = intval($_POST['broneeringu_id']);
 				$etenduse_id = intval($_POST['etenduse_id']);
-				$kasutaja_id = intval($_POST['kasutaja_id']);
 				$piletid = intval($_POST['piletid']);
-		        $result = controller_booking($broneeringu_id, $etenduse_id, $kasutaja_id, $piletid);
+		        $result = controller_booking($etenduse_id, $piletid);
 			    break;
             case 'delete': 
 		        $etenduse_id = intval($_POST['etenduse_id']);
@@ -79,22 +67,25 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 }
 
 if ( !empty($_GET['action']) ) {
-    //tekitame muutuja, mida muudame, juhul kui tegevused saavad läbi ja result on ikka false, siis tekkis viga, kui on true, siis tegime kas toimingu add või delete
+    //tekitame muutuja, mida muudame, juhul kui tegevused saavad läbi ja result on ikka false, siis tekkis viga, kui on true, siis tegime vastava toimingu
 	$result = false;
 	
     switch ($_GET['action']) {
 		case 'gobooking': 
 		    $etenduse_id = intval($_GET['etenduse_id']);
-			
-		    $result = controller_gobooking($etenduse_id);
+			$aeg = date ('Y-m-d H:i:s', strtotime($_GET['aeg']));
+		    $result = controller_gobooking($etenduse_id, $aeg);
 			break;
 	    }
 	
-	//Juhul, kui result on false ehk ei toimunud ühtegi toimingut, siis annab veateate.
+	//Juhul, kui result on false ehk ei õnnestunud broneerima minna, siis annab veateate ja jääb üldvaate lehele.
 	if (!$result) {
 		message_add('Päring ebaõnnestus!');
+		header('Location: rakendus.php');
+	    exit;
 	}
 	
+	// kui toiming õnnestus, siis kuvab etenduse detailvaate
 	require('view_etendus.php');
 	exit;
 	
