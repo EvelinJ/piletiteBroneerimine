@@ -1,21 +1,17 @@
 <!doctype html>
 <html>
     <head>
+	
         <meta charset="utf-8"/>
         <title>Lavastus</title>
-		
-        <style>
-            
-			
-        </style>
-		
+		<link rel="stylesheet" type="text/css" href="css.css">
         
     </head>
 	
     <body>
 	    
 		<?php foreach (message_list() as $message):?>
-		    <p style="border: 1px solid blue; background: #EEE;">
+		    <p class="message">
 			    <?= $message; ?>
 			</p>
 		<?php endforeach; ?>
@@ -25,14 +21,14 @@
 			    <input type="hidden" name="action" value="logout">
 				<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
 				
-				<button type="submit">Logi välja</button>
+				<button type="submit" class="button">Logi välja</button>
 			</form>
 		</div>
 		
         <h1>Lavastuse andmed</h1>
 
         <!-- Sisestatud andmete tabel -->
-        <table id="kirjed" border="1">
+        <table class="table" id="kirjed">
             <thead> <!-- tabeli päis -->
                 <tr> <!-- üks rida, kolm veergu -->
                     <th>Etenduse nimetus</th>
@@ -86,7 +82,7 @@
                 </table>
 				
 				<p>
-                    <button type="submit">Broneeri piletid</button>
+                    <button type="submit" class="button">Broneeri piletid</button>
 				</p>
 				
             </form>

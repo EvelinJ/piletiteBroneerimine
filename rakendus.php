@@ -39,7 +39,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		    case 'register':
 		        $kasutajanimi = $_POST['kasutajanimi'];
 			    $parool = $_POST['parool'];
-			    $result = controller_register($kasutajanimi, $parool);
+				$parool2 = $_POST['parool2'];
+			    $result = controller_register($kasutajanimi, $parool, $parool2);
 			    break;
 		    case 'login':
 		        $kasutajanimi = $_POST['kasutajanimi'];

@@ -3,51 +3,53 @@
     <head>
 	    
         <meta charset="utf-8"/>
-        <title>Sisselogimise vorm</title>
+        <title>Logi sisse</title>
+		<link rel="stylesheet" type="text/css" href="css.css">
 		
     </head>
 	
     <body>
 	    
 	    <?php foreach (message_list() as $message):?>
-		    <p style="border: 1px solid blue; background: #EEE;">
+		    <p class="message">
 			    <?= $message; ?>
 			</p>
 		<?php endforeach; ?>
 	
-        <h1>Sisselogimise vorm</h1>
+        <h1>Teatripiletite broneerimine</h1>
 		
-		<form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
+		<div class="form-user">
+		    <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
 		    
-		    <input type="hidden" name="action" value="login">
-			<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+		        <input type="hidden" name="action" value="login">
+			    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
 		    
-			<table>
-			    <tr>
-				    <td>Kasutajanimi</td>
-					<td>
-					    <input type="text" name="kasutajanimi" required>
-					</td>
-				</tr>
+			    <table class="table-user">
+			        <tr>
+				        <td>Kasutajanimi</td>
+					    <td>
+					        <input type="text" name="kasutajanimi" placeholder="Sisesta kasutajanimi" required>
+					    </td>
+				    </tr>
 				
-				<tr>
-				    <td>Parool</td>
-					<td>
-					    <input type="password" name="parool" required>
-					</td>
-				</tr>
-			</table>
+				    <tr>
+				        <td>Parool</td>
+					    <td>
+					        <input type="password" name="parool" placeholder="Sisesta parool" required>
+					    </td>
+				    </tr>
+			    </table>
 			
-			<p>
-			    <button type="submit">Logi sisse</button>
-			    või
-			    <a href="<?= $_SERVER['PHP_SELF']; ?>?view=register">
-			        registreeri kasutajaks
-			    </a>
-			</p>
+			    <p>
+			        <button type="submit" class="button">Logi sisse</button>
+			        või
+			        <a href="<?= $_SERVER['PHP_SELF']; ?>?view=register">
+			            registreeri kasutajaks
+			        </a>
+			    </p>
 		
-		</form>
-    
+		    </form>
+        </div>
 	</body>
 
 </html>

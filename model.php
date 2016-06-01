@@ -163,7 +163,7 @@
 		return $deleted;
 	}
 	
-	function model_user_add($kasutajanimi, $parool) {
+	function model_user_add($kasutajanimi, $parool, $parool2) {
 		global $l;
 		
 		$hash = password_hash($parool, PASSWORD_DEFAULT);

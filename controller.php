@@ -110,14 +110,19 @@
 	}
 	
 	//lisame uue kasutajakonto
-	function controller_register($kasutajanimi, $parool) {
+	function controller_register($kasutajanimi, $parool, $parool2) {
 		
-		if ($kasutajanimi == '' || $parool == '') {
+		if ($kasutajanimi == '' || $parool == '' || $parool2 == '') {
 			message_add('Kasutajanimi ja parool peavad olema sisestatud!');
 			return false;
 		}
 		
-		if ( model_user_add($kasutajanimi, $parool) ) {
+		if ($parool != $parool2) {
+			message_add('Parool ja parooli kordus ei tohi olla erinevad!');
+			return false;
+		}
+		
+		if ( model_user_add($kasutajanimi, $parool, $parool2) ) {
 			message_add('Teie konto on registreeritud');
 			return true;
 		}

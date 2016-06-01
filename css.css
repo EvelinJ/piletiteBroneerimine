@@ -1,0 +1,105 @@
+.form-user {
+    border: 1px solid #dcdcdc;
+    padding: 10px;
+	
+}
+
+.table-user {
+    font-family: Arial, Sans-Serif;
+}
+
+input[type="text"], input[type="password"], input[type="number"], input[type="datetime-local"] {
+    font-family: Arial, Sans-Serif; /* kuna on sama font ja size, siis väljad on ühe pikkused, kui seda ei määraks, siis oleks erineva pikkusega */
+    padding: 5px 10px;
+    font-size: 13px;
+    border: 1px solid #dcdcdc;
+	border-radius: 3px;
+    width: 15em;
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hover, input[type="datetime-local"]:hover {
+    border: 2px solid #dcdcdc;
+}
+
+.table {
+    font-family: Arial, Sans-Serif;
+    border-spacing: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.table tr:hover {
+    background-color: #dcdcdc;
+}
+
+.table th {
+    font-family: Arial, Sans-Serif;
+    border-bottom: 2px solid #dcdcdc;
+    padding: 5px 10px 5px 10px;
+}
+
+.table td {
+    font-family: Arial, Sans-Serif;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 5px 10px 5px 10px;
+}
+
+#lisa-vorm-vaade {
+	font-family: Arial, Sans-Serif;
+    display: none;
+    border: 1px solid #dcdcdc;
+    padding: 10px;
+}
+
+.page {
+	margin-left: auto;
+	margin-right: auto;
+	width: 20%;
+}
+
+.button {
+	background-color: #ffffff;
+	border: 1px solid #dcdcdc;
+	border-radius: 6px;
+	color: #666666;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 6px 12px;
+	text-shadow: 0px 1px 0px #ffffff;
+	cursor: pointer;
+}
+
+.delete {
+	background-color: #fc8d83;
+	border: 1px solid #d83526;
+	border-radius: 6px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 6px 12px;
+	text-shadow: 0px 1px 0px #b23e35;
+	cursor: pointer;
+}
+
+.booking {
+	background-color: #79bbff;
+	border: 1px solid #337bc4;
+	border-radius: 6px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 6px 12px;
+	text-shadow: 0px 1px 0px #528ecc;
+	cursor: pointer;
+	display:inline-block;
+}
+
+
+
+.message {
+	background: #EEE;
+	border: 1px solid blue;
+}

@@ -3,16 +3,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Piletite broneerimine</title>
-		
-        <style>
-            #lisa-vorm-vaade {
-                display: none;
-                border: 1px solid red;
-                padding: 10px;
-            }
-            
-			
-        </style>
+		<link rel="stylesheet" type="text/css" href="css.css">
 		
         
     </head>
@@ -20,7 +11,7 @@
     <body>
 	    
 		<?php foreach (message_list() as $message):?>
-		    <p style="border: 1px solid blue; background: #EEE;">
+		    <p class="message">
 			    <?= $message; ?>
 			</p>
 		<?php endforeach; ?>
@@ -29,11 +20,11 @@
 		    <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
 			    <input type="hidden" name="action" value="logout">
 				<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-				<button type="submit">Logi välja</button>
+				<button type="submit" class="button">Logi välja</button>
 			</form>
 		</div>
 		
-        <h1>Piletite broneerimine</h1>
+        <h1>Mängukava</h1>
 		
         <p>
 		    <button type="button" id="kuva-lisa-vorm">Ava etenduste sisestamise vorm</button>
@@ -62,7 +53,7 @@
                         </td>
                     </tr>
 					<tr>
-                        <td>Etenduse toimumise aeg</td>
+                        <td>Etenduse toimumise aeg (YYYY-MM-DD HH:MM:SS)</td>
                         <td>
                             <input type="datetime-local" id="aeg" name="aeg">
                         </td>
@@ -76,7 +67,7 @@
                 </table>
 				
 				<p>
-                    <button type="submit" id="lisa-nupp">Lisa etendus</button>
+                    <button type="submit" class="button" id="lisa-nupp">Lisa etendus</button>
 				</p>
 				
             </form>
@@ -84,7 +75,7 @@
         </div>
 		
 		<!-- Sisestatud andmete tabel -->
-        <table id="kirjed" border="1">
+        <table class="table" id="kirjed">
             <thead> <!-- tabeli päis -->
                 <tr> <!-- üks rida, viis veergu -->
                     <th>Etenduse nimetus</th>
@@ -119,7 +110,7 @@
                                 <input type="hidden" name="etenduse_id" value="<?= $rida['etenduse_id']; ?>">
 								<input type="hidden" name="aeg" value="<?= $rida['aeg']; ?>">
                                 
-								<button type="submit">Pileti broneerimine</button>
+								<button type="submit" class="booking">Pileti broneerimine</button>
                                 
 							</form>
 							
@@ -131,7 +122,7 @@
 								<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                 <input type="hidden" name="etenduse_id" value="<?= $rida['etenduse_id']; ?>">
 								
-                                <button type="submit">Kustuta etendus</button>
+                                <button type="submit" class="delete">Kustuta etendus</button>
                             </form>
                     
                         </td>
@@ -141,7 +132,7 @@
 			</tbody>
         </table>
 		
-		<p>
+		<p class="page">
 		    <a href="<?= $_SERVER['PHP_SELF']; ?>?page=<?= $page - 1; ?>">
 			    Eelmine lehekülg
 			</a>
