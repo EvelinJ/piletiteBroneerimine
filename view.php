@@ -28,7 +28,7 @@
 		    <button type="button" class="button" id="kuva-lisa-vorm">Ava etenduste sisestamise vorm</button>
 		</p>
 
-        <div id="lisa-vorm-vaade">
+        <div class="vorm" id="lisa-vorm-vaade">
 			
             <form id="lisa-vorm" method="post" action="<?= $_SERVER['PHP_SELF']; ?>"> <!-- php jaoks on vajalik method ja action viitab sellele failile, mille URLis avame 9Rakendus.php-->
                 

@@ -23,7 +23,7 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hov
 
 .table {
     font-family: Arial, Sans-Serif;
-    border-spacing: 0px;
+    border-spacing: 0;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -44,7 +44,7 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hov
     padding: 5px 10px 5px 10px;
 }
 
-#lisa-vorm-vaade {
+.vorm {
 	font-family: Arial, Sans-Serif;
     display: none;
     border: 1px solid #dcdcdc;
@@ -72,7 +72,7 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hov
 	font-size: 15px;
 	font-weight: bold;
 	padding: 6px 12px;
-	text-shadow: 0px 1px 0px #ffffff;
+	text-shadow: 0 1px 0 #ffffff;
 	cursor: pointer;
 }
 
@@ -85,7 +85,7 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hov
 	font-size: 15px;
 	font-weight: bold;
 	padding: 6px 12px;
-	text-shadow: 0px 1px 0px #b23e35;
+	text-shadow: 0 1px 0 #b23e35;
 	cursor: pointer;
 }
 
@@ -98,7 +98,7 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hov
 	font-size: 15px;
 	font-weight: bold;
 	padding: 6px 12px;
-	text-shadow: 0px 1px 0px #528ecc;
+	text-shadow: 0 1px 0 #528ecc;
 	cursor: pointer;
 	display:inline-block;
 }
