@@ -14,7 +14,7 @@
 		$max = 10;
 		$start = ($page - 1) * $max;
 		
-		$query = 'SELECT Etenduse_id, Nimetus, Aeg, Kohti_kokku-IFNULL(SUM(Broneeritud_piletid),0) as vabu_kohti FROM ejogi__etendused LEFT JOIN ejogi__broneeringud ON Etenduse_id=Etenduse_kood GROUP BY Etenduse_id ORDER BY Aeg ASC LIMIT ?,?';
+		$query = 'SELECT Etenduse_id, Nimetus, Aeg, Kohti_kokku-IFNULL(SUM(Broneeritud_piletid),0) as vabu_kohti FROM ejogi__etendused LEFT JOIN ejogi__broneeringud ON Etenduse_id=Etenduse_kood GROUP BY Etenduse_id ORDER BY Aeg, Nimetus ASC LIMIT ?,?';
 		$stmt = mysqli_prepare($l, $query);
 		//juhul kui SQL lause on vale, siis saame teate
 		if ( mysqli_error($l) ) {

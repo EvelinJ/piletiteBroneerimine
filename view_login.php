@@ -16,7 +16,7 @@
 			</p>
 		<?php endforeach; ?>
 	
-        <h1>Teatripiletite broneerimine</h1>
+        <h1 class="pealkiri">Teatripiletite broneerimine</h1>
 		
 		<div class="form-user">
 		    <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
@@ -51,5 +51,4 @@
 		    </form>
         </div>
 	</body>
-
 </html>

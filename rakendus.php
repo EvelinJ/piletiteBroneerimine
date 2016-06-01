@@ -55,12 +55,6 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		message_add('Vigane päring, CSRF token ei vasta oodatule');
 	}
 	
-	//Juhul, kui result on false ehk ei toimunud ühtegi toimingut, siis annab veateate.
-	if (!$result) {
-		message_add('Päring ebaõnnestus!');
-	}
-	
-	
 	//kui result muutus true'ks suuname kasutaja ümber iseenda pihta.
 	header('Location: rakendus.php');
 	exit;
@@ -81,7 +75,6 @@ if ( !empty($_GET['action']) ) {
 	
 	//Juhul, kui result on false ehk ei õnnestunud broneerima minna, siis annab veateate ja jääb üldvaate lehele.
 	if (!$result) {
-		message_add('Päring ebaõnnestus!');
 		header('Location: rakendus.php');
 	    exit;
 	}

@@ -33,17 +33,3 @@ document.querySelector("#lisa-vorm").addEventListener(
         }
 	}
 );
-
-document.querySelector("#lisa-broneering").addEventListener(
-    "submit", //submit suunab lehelt minema, aga et seda ei juhtuks teeme eventi
-    function(event){
-        
-        var piletid = Number(document.querySelector("#piletid").value); //number on ka string väärtus, et saaks aru, et number paneme Number()
-		
-        if (piletid <= 0) {
-            alert("Sisesta piletite arv!");
-            event.preventDefault(); //ära navigeeri lehelt minema
-            return;
-        }
-	}
-);

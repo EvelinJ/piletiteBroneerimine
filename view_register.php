@@ -16,7 +16,7 @@
 			</p>
 		<?php endforeach; ?>
 		
-		<h1>Registreeri kasutajaks</h1>
+		<h1 class="pealkiri">Registreeri kasutajaks</h1>
 		<div class="form-user">
 		    <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
 		    
@@ -56,5 +56,4 @@
 		    </form>
         </div>
 	</body>
-
 </html>

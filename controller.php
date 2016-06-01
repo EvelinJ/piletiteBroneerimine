@@ -16,7 +16,7 @@
 		}
 		
 		if ( model_add($nimetus, $aeg, $kohad) ) {
-			message_add('Mängukavva lisati uus etendus');
+			message_add('Mängukavva lisati uus etendus!');
 			// saadame info modelisse, mis reaalse salvestamise teeb
 			return true;
 		}
@@ -35,12 +35,12 @@
 		}
 		
 		if ($etenduse_id <= 0) {
-			message_add('Vigased sisendandmed');
+			message_add('Vigased sisendandmed!');
 			return false;
 		}
 		
 		if ($aeg < $kuupaev) {
-			message_add('Juba toimunud etendusele ei saa pileteid broneerida');
+			message_add('Juba toimunud etendusele ei saa pileteid broneerida!');
 			return false;
 		}
 		
@@ -50,7 +50,7 @@
 			return true;
 		}
 		
-		message_add('Etenduse valimine ebaõnnestus');
+		message_add('Etenduse valimine ebaõnnestus!');
 		return false;
 		
 	}
@@ -66,7 +66,7 @@
 		
 		// kui id või kogus on nullist väiksem või 0 või pileteid broneeritakse rohkem kui vabu kohti, siis see meile ei sobi
 		if ($etenduse_id <= 0 || $piletid <= 0 || $piletid > $vabad_kohad['kohad']) {
-			message_add('Broneeritavate piletite arv peab olema väiksem, kui vabade kohtade arv ja piletite arv peab olema nullist suurem');
+			message_add('Broneeritavate piletite arv peab olema väiksem, kui vabade kohtade arv ja piletite arv peab olema nullist suurem!');
 			return false;
 		}
 		
@@ -88,7 +88,7 @@
 		}
 		
 		if ($etenduse_id <= 0) {
-			message_add('Vigased sisendandmed');
+			message_add('Vigased sisendandmed!');
 			return false;
 		}
 		
@@ -123,7 +123,7 @@
 		}
 		
 		if ( model_user_add($kasutajanimi, $parool, $parool2) ) {
-			message_add('Teie konto on registreeritud');
+			message_add('Teie konto on registreeritud!');
 			return true;
 		}
 		
@@ -141,7 +141,7 @@
 		$kasutaja_id = model_user_get($kasutajanimi, $parool);
 		
 		if (!$kasutaja_id) {
-			message_add('Vigane kasutajanimi või parool');
+			message_add('Vigane kasutajanimi või parool!');
 			return false;
 		}
 		
@@ -164,7 +164,7 @@
 		
 		session_destroy();
 		
-		message_add('Oled nüüd välja logitud');
+		message_add('Oled nüüd välja logitud!');
 		
 		return true;
 		

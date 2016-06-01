@@ -1,7 +1,6 @@
 .form-user {
     border: 1px solid #dcdcdc;
     padding: 10px;
-	
 }
 
 .table-user {
@@ -19,6 +18,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 
 input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hover, input[type="datetime-local"]:hover {
     border: 2px solid #dcdcdc;
+	margin:-1px;
 }
 
 .table {
@@ -51,7 +51,13 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hov
     padding: 10px;
 }
 
-.page {
+.pealkiri {
+	font-family: Arial, Sans-Serif;
+	color: #428bca;
+}
+
+.center {
+	font-family: Arial, Sans-Serif;
 	margin-left: auto;
 	margin-right: auto;
 	width: 20%;
@@ -97,9 +103,11 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="number"]:hov
 	display:inline-block;
 }
 
-
-
 .message {
-	background: #EEE;
-	border: 1px solid blue;
+	background-color: #dcdcdc;
+	border: 1px solid #666666;
+	border-radius: 6px;
+	color: #666666;
+	font-family: Arial;
+	padding: 6px 12px;
 }

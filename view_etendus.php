@@ -1,11 +1,9 @@
 <!doctype html>
 <html>
     <head>
-	
         <meta charset="utf-8"/>
         <title>Lavastus</title>
 		<link rel="stylesheet" type="text/css" href="css.css">
-        
     </head>
 	
     <body>
@@ -25,7 +23,9 @@
 			</form>
 		</div>
 		
-        <h1>Lavastuse andmed</h1>
+		<br>
+		
+        <h2 class="center">Lavastuse andmed</h2>
 
         <!-- Sisestatud andmete tabel -->
         <table class="table" id="kirjed">
@@ -42,7 +42,6 @@
 			<?php $etendus = model_gobooking($etenduse_id, $aeg); ?>
 			
 			<?php if ( !empty($etendus) ) :?>
-				<h3><?php echo $etendus['nimetus']; ?></h3>
 				<tr>
                     <td>
                         <!-- vältimaks pahatahtlikku XSS sisu, kus kasutaja sisestab õige info asemel <script> tag'i, peame tekstiväljundis asendama kõik HTML erisümbolid  --> 
@@ -69,7 +68,7 @@
 				<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
 				<input type="hidden" name="etenduse_id" value="<?= $etendus['etenduse_id']; ?>">
 				
-				<h2>Broneeri pilet</h2>
+				<h2 class="pealkiri">Broneeri pilet</h2>
 				
 				<!-- broneeritavate piletite siestamine -->
 				<table>
@@ -82,14 +81,11 @@
                 </table>
 				
 				<p>
-                    <button type="submit" class="button">Broneeri piletid</button>
+                    <button type="submit" class="button">Broneeri pilet</button>
 				</p>
 				
             </form>
 			
         </div>
-
-        <script src="rakendus.js"></script>
     </body>
-
 </html>

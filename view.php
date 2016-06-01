@@ -4,8 +4,6 @@
         <meta charset="utf-8"/>
         <title>Piletite broneerimine</title>
 		<link rel="stylesheet" type="text/css" href="css.css">
-		
-        
     </head>
 	
     <body>
@@ -24,10 +22,10 @@
 			</form>
 		</div>
 		
-        <h1>Mängukava</h1>
+        <h1 class="pealkiri">Mängukava</h1>
 		
         <p>
-		    <button type="button" id="kuva-lisa-vorm">Ava etenduste sisestamise vorm</button>
+		    <button type="button" class="button" id="kuva-lisa-vorm">Ava etenduste sisestamise vorm</button>
 		</p>
 
         <div id="lisa-vorm-vaade">
@@ -38,7 +36,7 @@
 				<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
 				
 				<p>
-				    <button type="button" id="peida-lisa-vorm">Peida etenduste sisestamise vorm</button>
+				    <button type="button" class="button" id="peida-lisa-vorm">Peida etenduste sisestamise vorm</button>
 				</p>
 				
 				<h2>Lisa lavastus mängukavasse</h2>
@@ -87,7 +85,6 @@
             </thead>
 			
             <tbody>
-			
             <!-- salvestame massiivist väärtused tabelisse -->
             <?php 
 			// koolon tsükli lõpus tähendab, et tsükkel koosneb HTML osast
@@ -128,11 +125,10 @@
                         </td>
                     </tr>
             <?php endforeach; ?>
-            
 			</tbody>
         </table>
 		
-		<p class="page">
+		<p class="center">
 		    <a href="<?= $_SERVER['PHP_SELF']; ?>?page=<?= $page - 1; ?>">
 			    Eelmine lehekülg
 			</a>
@@ -140,10 +136,8 @@
 			<a href="<?= $_SERVER['PHP_SELF']; ?>?page=<?= $page + 1; ?>">
 			    Järgmine lehekülg
 			</a>
-			
 		</p>
 
         <script src="rakendus.js"></script>
     </body>
-
 </html>
