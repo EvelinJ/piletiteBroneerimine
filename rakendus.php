@@ -37,14 +37,14 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		        $result = controller_delete($etenduse_id);
 			    break;
 		    case 'register':
-		        $kasutajanimi = $_POST['kasutajanimi'];
-			    $parool = $_POST['parool'];
-				$parool2 = $_POST['parool2'];
+		        $kasutajanimi = htmlspecialchars($_POST['kasutajanimi']);
+			    $parool = htmlspecialchars($_POST['parool']);
+				$parool2 = htmlspecialchars($_POST['parool2']);
 			    $result = controller_register($kasutajanimi, $parool, $parool2);
 			    break;
 		    case 'login':
-		        $kasutajanimi = $_POST['kasutajanimi'];
-			    $parool = $_POST['parool'];
+		        $kasutajanimi = htmlspecialchars($_POST['kasutajanimi']);
+			    $parool = htmlspecialchars($_POST['parool']);
 			    $result = controller_login($kasutajanimi, $parool);
 			    break;
 		    case 'logout':
